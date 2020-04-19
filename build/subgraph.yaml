@@ -2,14 +2,13 @@ specVersion: 0.0.2
 description: Subgraph for Aragon Organizations
 repository: https://github.com/ajsantander/aragon-subgraph
 schema:
-  file: ./schema.graphql
+  file: schema.graphql
 dataSources:
   - kind: ethereum/contract
     name: DAOFactory
     network: mainnet
     source:
-      # address: '0x5d94e3e7aec542ab0f9129b9a7badeb5b3ca0f77' # Aragen's DAOFactory.
-      address: '0x8EEaea23686c319133a7cC110b840d1591d9AeE0' # Buidler plugin's DAOFactory.
+      address: "0x8EEaea23686c319133a7cC110b840d1591d9AeE0"
       abi: DAOFactory
     mapping:
       kind: ethereum/events
@@ -19,11 +18,11 @@ dataSources:
         - DAO
       abis:
         - name: DAOFactory
-          file: ./abis/DAOFactory.json
+          file: DAOFactory/abis/DAOFactory.json
       eventHandlers:
         - event: DeployDAO(address)
           handler: handleDeployDAO
-      file: ./src/mapping.ts
+      file: DAOFactory/DAOFactory.wasm
 templates:
   - kind: ethereum/contract
     name: Kernel
@@ -39,8 +38,8 @@ templates:
         - App
       abis:
         - name: Kernel
-          file: ./abis/Kernel.json
+          file: Kernel/abis/Kernel.json
       eventHandlers:
         - event: SetApp(indexed bytes32,indexed bytes32,address)
           handler: handleSetApp
-      file: ./src/mapping.ts
+      file: DAOFactory/DAOFactory.wasm
